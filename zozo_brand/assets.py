@@ -39,6 +39,7 @@ def all_assets() -> list[Asset]:
     square = [(f"-{px}", {"width": px}, None) for px in config.PNG_SQUARE_SIZES]
     text = [(f"-{c}-h{px}", {"height": px}, c) for c in config.TEXT_COLORS for px in config.PNG_TEXT_HEIGHTS]
     wide = [(f"-w{px}", {"width": px}, None) for px in config.PNG_HERO_WIDTHS]
+    tall = [(f"-h{px}", {"height": px}, None) for px in config.PNG_TEXT_HEIGHTS]
 
     out = [Asset("symbol/symbol", svg.symbol())]
     out += [Asset(f"symbol/symbol-{c}", svg.symbol(COLORS[c]), square) for c in config.SYMBOL_COLORS]
@@ -48,7 +49,9 @@ def all_assets() -> list[Asset]:
         mark = brand_wordmark(name)
         out.append(Asset(f"wordmark/{slug(name)}", svg.wordmark(mark), text))
         out.append(Asset(f"lockup/{slug(name)}", svg.lockup(mark), text))
-        out += [Asset(f"hero/{slug(name)}{suffix}", svg.hero(mark, **spec), wide) for suffix, spec in config.HEROES.items()]
+        for suffix, spec in config.HEROES.items():
+            out.append(Asset(f"hero/{slug(name)}{suffix}", svg.hero(mark, **spec), wide))
+            out.append(Asset(f"hero/{slug(name)}{suffix}-tight", svg.hero(mark, **spec, tight=True), tall))
     return out
 
 

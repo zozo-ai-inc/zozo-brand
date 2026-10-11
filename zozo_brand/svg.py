@@ -82,9 +82,15 @@ def lockup(mark: Wordmark, fill="currentColor", attrs=XMLNS):
     return f'<svg{attrs} viewBox="{x:g} {y:.1f} {w:.1f} {h:.1f}" fill="{fill}"{_label(mark.text)}>{paths}</svg>'
 
 
-def hero(mark: Wordmark, ground, ink, text=None, attrs=XMLNS):
-    """A lockup on a full field of colour, with the field as part of the artwork."""
-    paths, (x, _, w, _) = _lockup_parts(mark, COLORS[text] if text else None)
+def hero(mark: Wordmark, ground, ink, text=None, tight=False, attrs=XMLNS):
+    """A lockup on a full field of colour, with the field as part of the artwork.
+
+    tight leaves the field out and crops to the lockup, in the hero's colours
+    on a transparent background, for a client that supplies the field itself.
+    """
+    paths, (x, y, w, h) = _lockup_parts(mark, COLORS[text] if text else None)
+    if tight:
+        return f'<svg{attrs} viewBox="{x:g} {y:.1f} {w:.1f} {h:.1f}" fill="{COLORS[ink]}"{_label(mark.text)}>{paths}</svg>'
     # pad around the lowercase letters rather than the box, which has empty
     # ascender or descender space on some names
     pad = config.HERO_PAD * mark.x_height

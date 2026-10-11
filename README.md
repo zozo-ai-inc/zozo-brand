@@ -29,7 +29,7 @@ To try a piece of text without touching the identity:
 | `favicon/` | `favicon.svg` (the bare flower, switching with the system theme), `favicon.ico` and `apple-touch-icon.png` (tile fallbacks). |
 | `wordmark/` | Each name as text only. The SVG takes the page's colour; PNGs come in ink and white. |
 | `lockup/` | Flower + name, same colours as the wordmarks. |
-| `hero/` | A lockup on a full field of brand colour: normal and `-night`. |
+| `hero/` | A lockup on a full field of brand colour: normal (white on violet) and `-night` (lilac flower, white text, on night). Each also comes as `-tight`: the same colours on a transparent background, cropped to the lockup, for a page that paints the field itself. |
 | `colors.css`, `colors.json` | The palette. |
 | `brand-sheet.html` | Everything on one page, with mockups. |
 

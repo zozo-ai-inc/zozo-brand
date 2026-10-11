@@ -76,7 +76,9 @@ ICONS = {
 }
 
 # ---- Heroes: a lockup on a full field of colour. "text" colours the name
-# separately from the flower. The key is the file-name suffix.
+# separately from the flower. The key is the file-name suffix. Each is also
+# written as a "-tight" version: the same colours, no field, cropped to the
+# lockup, for a client that paints the "ground" colour itself.
 HEROES = {
     "": dict(ground="violet", ink="white"),
     "-night": dict(ground="night", ink="lilac", text="white"),

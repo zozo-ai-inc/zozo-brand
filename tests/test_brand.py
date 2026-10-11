@@ -88,6 +88,18 @@ class Symbol(unittest.TestCase):
             pinwheel(**{**config.PINWHEEL, "width": 900})
 
 
+class Heroes(unittest.TestCase):
+    def test_tight_hero_has_the_lockup_box_and_no_field(self):
+        mark = brand_wordmark("zozo chat")
+        for spec in config.HEROES.values():
+            full, tight = svg.hero(mark, **spec), svg.hero(mark, **spec, tight=True)
+            self.assertIn("<rect", full)
+            self.assertNotIn("<rect", tight)
+            self.assertNotIn(config.COLORS[spec["ground"]], tight)
+            box = lambda s: ET.fromstring(s).get("viewBox")
+            self.assertEqual(box(tight), box(svg.lockup(mark)))
+
+
 class Colours(unittest.TestCase):
     def test_pairings_are_legible(self):
         for fg, bg in config.PAIRINGS:
